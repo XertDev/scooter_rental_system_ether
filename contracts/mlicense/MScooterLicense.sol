@@ -52,15 +52,15 @@ contract MScooterLicense is IMScooterLicense{
     }
 
     function addScooter(address scooter) public onlyAdmin {
-        require(!_scooters[scooter], "provided scooter is already registered");
         require(scooter != address(0), "provided scooter is the zero address");
+        require(!_scooters[scooter], "provided scooter is already registered");
 
         _scooters[scooter] = true;
     }
 
     function removeScooter(address scooter) public onlyAdmin {
-        require(_scooters[scooter], "provided scooter is not registered");
         require(scooter != address(0), "provided scooter is the zero address");
+        require(_scooters[scooter], "provided scooter is not registered");
 
         _scooters[scooter] = false;
     }
@@ -122,7 +122,7 @@ contract MScooterLicense is IMScooterLicense{
      * Returns a bolean indicationg whether the operation succeded.
      */
     function extend(uint8 day_extend) public payable{
-        require(day_extend * dayPrice < msg.value, "Not enough etherum for given duration");
+        require(day_extend * dayPrice <= msg.value, "Not enough etherum for given duration");
 
         uint256 toPayback = msg.value - day_extend * dayPrice;
 
