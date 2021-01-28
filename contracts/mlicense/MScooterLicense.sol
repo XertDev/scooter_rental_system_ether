@@ -104,6 +104,17 @@ contract MScooterLicense is IMScooterLicense{
     }
 
     /**
+     * @dev Return true if user can currently start driving.
+     */
+    function canDrive(address account) external view returns (bool) {
+        if(now >= _licenseEndTimes[account]) {
+            return false;
+        }
+
+        return !_drivingStates[account];
+    }
+
+    /**
      * @dev Update driving state
      */
     function setDrivingState(address account, bool state) external onlyAdminAndScooter {

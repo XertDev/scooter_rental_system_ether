@@ -21,6 +21,11 @@ interface IMScooterLicense {
     function drivingState(address account) external view returns (bool);
 
     /**
+     * @dev Return true if user can currently start driving.
+     */
+    function canDrive(address account) external view returns (bool);
+
+    /**
      * @dev Update driving state
      */
     function setDrivingState(address account, bool state) external;
